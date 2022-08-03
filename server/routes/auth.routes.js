@@ -68,6 +68,7 @@ router.post('/signUp', [
 // 3. Compare hashed password
 // 4. generate token
 // 5. return data
+
 router.post('/signInWithPassword', [
   check('email', 'Email incorrect').normalizeEmail().isEmail(),
   check('password', 'Password is not be empty').exists(),
