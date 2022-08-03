@@ -1,0 +1,30 @@
+{
+  "name": "booking-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app.js",
+    "serve": "cross-env NODE_ENV=development nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s2000promax/hangout.git"
+  },
+  "author": "Stan <s2000promax@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s2000promax/hangout/issues"
+  },
+  "homepage": "https://github.com/s2000promax/hangout#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "config": "^3.3.7",
+    "express": "^4.17.2",
+    "mongoose": "^6.4.4"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.15"
+  }
+}
