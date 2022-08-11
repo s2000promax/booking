@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model} = require('mongoose');
 
 const schema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -7,4 +7,4 @@ const schema = new Schema({
   timestamps: true
 })
 
-module.exports = model('Token', schema)
+module.exports = model('Token', schema);

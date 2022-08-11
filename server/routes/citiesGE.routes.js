@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
   try {
     const list = await CitiesGE.find();
     res.status(200).send(list);
-  } catch (e) {
+  } catch (error) {
     res.status(500).json({
       message: 'Server error. Try later'
     });
