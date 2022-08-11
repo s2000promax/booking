@@ -1,36 +1,50 @@
-// 1. Any user has min required fields in DB (cities & hotels)
-// 2. The data equals mock data
+const Profession = require('../models/Profession');
+const Quality = require('../models/Quality');
 
 const CitiesGE = require('../models/CitiesGE');
 const HotelsGE = require('../models/HotelsGE');
 
-const citiesMock = require('../mock/citiesGE.json');
-const hotelsMock = require('../mock/hotelsGE.json');
+const professionMock = require('../mock/professions.json');
+const qualitiesMock = require('../mock/qualities.json');
+
+const citiesGeMock = require('../mock/citiesGE.json');
+const hotelsGeMock = require('../mock/hotelsGE.json');
 
 module.exports = async () => {
- const citiesGE = await CitiesGE.find;
- if (citiesGE.length !== citiesMock.length) {
-    await createInitialEntities(CitiesGE, citiesMock)
- }
+  const citiesGe = await CitiesGE.find();
+  if (citiesGe.length !== citiesGeMock.length) {
+    await createInitialEntity(CitiesGE, citiesGeMock);
+  }
 
-  const hotelsGE = await HotelsGE.find;
-  if (hotelsGE.length !== hotelsMock.length) {
-    await createInitialEntities(HotelsGE, hotelsMock);
+  const hotelsGe = await HotelsGE.find();
+  if (hotelsGe.length !== hotelsGeMock.length) {
+    await createInitialEntity(HotelsGE, hotelsGeMock);
+  }
+
+  const professions = await Profession.find();
+  if (professions.length !== professionMock.length) {
+    await createInitialEntity(Profession, professionMock);
+  }
+
+  const qualities = await Quality.find();
+  if (qualities.length !== professionMock.length) {
+    await createInitialEntity(Quality, qualitiesMock);
   }
 };
 
-async function createInitialEntities(Model, data) {
+async function createInitialEntity(Model, data) {
   await Model.collection.drop();
   return Promise.all(
     data.map(async item => {
       try {
-        delete  item._id;
+        delete item._id;
         const newItem = new Model(item);
         await newItem.save();
         return newItem;
-      } catch (error) {
-        return error;
+      } catch (e) {
+        return e;
       }
     })
-  );
-}
+  )
+};
+

@@ -1,9 +1,12 @@
-import React from 'react';
+import React from "react";
 
 const Main = () => {
-  return (
-    <h1>Main page</h1>
-  );
+
+    return (
+        <div className="container mt-5">
+            <h1> Main Page</h1>
+        </div>
+    );
 };
 
 export default Main;

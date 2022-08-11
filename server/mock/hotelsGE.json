@@ -2,31 +2,37 @@
   {
     "_id": "67rdca3eeb7f6fgeed471198",
     "name": "Sisno hotel",
+    "roomsNumber": 5,
     "rate": 4
   },
   {
     "_id": "67rdca3eeb7f6fgeed471100",
     "name": "Hotel Flower",
+    "roomsNumber": 3,
     "rate": 4
   },
   {
     "_id": "67rdca3eeb7f6fgeed4711012",
     "name": "Courtyard by Marriott Tbilisi",
+    "roomsNumber": 7,
     "rate": 4
   },
   {
     "_id": "67rdca3eeb7f6fgeed471101",
     "name": "Taberne Boutique Hotel Tbilisi",
+    "roomsNumber": 6,
     "rate": 4
   },
   {
     "_id": "67rdca3eeb7f6fgeed471102",
     "name": "Hotel Sololaki",
+    "roomsNumber": 2,
     "rate": 3
   },
   {
     "_id": "67rdca3eeb7f6fgeed471103",
     "name": "Museum Hotel",
+    "roomsNumber": 5,
     "rate": 4
   }
 ]
