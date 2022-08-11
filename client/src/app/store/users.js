@@ -4,6 +4,7 @@ import localStorageService from '../services/localStorage.service';
 import userService from '../services/user.service';
 import { generetaAuthError } from '../utils/generateAuthError';
 import history from '../utils/history';
+
 const initialState = localStorageService.getAccessToken()
     ? {
           entities: null,
@@ -34,7 +35,7 @@ const usersSlice = createSlice({
             state.dataLoaded = true;
             state.isLoading = false;
         },
-        usersRequestFiled: (state, action) => {
+        usersRequestFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
         },
@@ -69,7 +70,7 @@ const { reducer: usersReducer, actions } = usersSlice;
 const {
     usersRequested,
     usersReceived,
-    usersRequestFiled,
+    usersRequestFailed,
     authRequestFailed,
     authRequestSuccess,
     userLoggedOut,
@@ -124,7 +125,7 @@ export const loadUsersList = () => async (dispatch) => {
         const { content } = await userService.get();
         dispatch(usersReceived(content));
     } catch (error) {
-        dispatch(usersRequestFiled(error.message));
+        dispatch(usersRequestFailed(error.message));
     }
 };
 export const updateUser = (payload) => async (dispatch) => {

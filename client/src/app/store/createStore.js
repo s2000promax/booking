@@ -4,6 +4,7 @@ import qualitiesReducer from "./qualities";
 import usersReducer from "./users";
 import citiesGeReducer from "./citiesGE";
 import hotelsGeReducer from "./hotelsGE";
+import scheduleReducer from './schedule';
 
 const { combineReducers, configureStore } = require("@reduxjs/toolkit");
 
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     users: usersReducer,
     comments: commentsReducer,
     citiesGE: citiesGeReducer,
-    hotelsGE: hotelsGeReducer
+    hotelsGE: hotelsGeReducer,
+    schedule: scheduleReducer
 });
 
 export function createStore() {

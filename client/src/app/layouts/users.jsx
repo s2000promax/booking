@@ -1,12 +1,13 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { useParams, Redirect } from "react-router-dom";
-import EditUserPage from "../components/page/editUserPage";
-import UserPage from "../components/page/userPage";
-import UsersListPage from "../components/page/usersListPage";
-import UsersLoader from "../components/ui/hoc/usersLoader";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useParams, Redirect } from 'react-router-dom';
+import EditUserPage from '../components/page/editUserPage';
+import UserPage from '../components/page/userPage';
+import UsersListPage from '../components/page/usersListPage';
+import UsersLoader from '../components/ui/hoc/usersLoader';
 
-import { getCurrentUserId } from "../store/users";
+import { getCurrentUserId } from '../store/users';
+import HotelsGeList from '../components/ui/hotelsGeList';
 const Users = () => {
     const params = useParams();
     const { userId, edit } = params;
@@ -26,7 +27,8 @@ const Users = () => {
                         <UserPage userId={userId} />
                     )
                 ) : (
-                    <UsersListPage />
+                    // <UsersListPage />
+                  <HotelsGeList />
                 )}
             </UsersLoader>
         </>
