@@ -11,9 +11,6 @@ import { loadCitiesGeList } from "../../../store/citiesGE";
 import { loadHotelsGeList } from "../../../store/hotelsGE";
 
 
-import { loadQualitiesList } from "../../../store/qualities";
-import { loadProfessionsList } from "../../../store/professions";
-
 const AppLoader = ({ children }) => {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(getIsLoggedIn());
@@ -22,8 +19,6 @@ const AppLoader = ({ children }) => {
         dispatch(loadCitiesGeList());
         dispatch(loadHotelsGeList());
 
-        dispatch(loadQualitiesList());
-        dispatch(loadProfessionsList());
         if (isLoggedIn) {
             dispatch(loadUsersList());
         }

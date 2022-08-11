@@ -1,5 +1,4 @@
 import React from "react";
-import HotelsGeList from '../components/ui/hotelsGeList';
 
 const Main = () => {
 

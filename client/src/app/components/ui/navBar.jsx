@@ -22,7 +22,7 @@ const NavBar = () => {
                                 aria-current="page"
                                 to="/users"
                             >
-                                Users
+                                Schedule
                             </Link>
                         </li>
                     )}
