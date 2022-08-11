@@ -1,9 +1,9 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import authService from "../services/auth.service";
-import localStorageService from "../services/localStorage.service";
-import userService from "../services/user.service";
-import { generetaAuthError } from "../utils/generateAuthError";
-import history from "../utils/history";
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import authService from '../services/auth.service';
+import localStorageService from '../services/localStorage.service';
+import userService from '../services/user.service';
+import { generetaAuthError } from '../utils/generateAuthError';
+import history from '../utils/history';
 const initialState = localStorageService.getAccessToken()
     ? {
           entities: null,
@@ -23,13 +23,13 @@ const initialState = localStorageService.getAccessToken()
       };
 
 const usersSlice = createSlice({
-    name: "users",
+    name: 'users',
     initialState,
     reducers: {
         usersRequested: (state) => {
             state.isLoading = true;
         },
-        usersReceved: (state, action) => {
+        usersReceived: (state, action) => {
             state.entities = action.payload;
             state.dataLoaded = true;
             state.isLoading = false;
@@ -68,7 +68,7 @@ const usersSlice = createSlice({
 const { reducer: usersReducer, actions } = usersSlice;
 const {
     usersRequested,
-    usersReceved,
+    usersReceived,
     usersRequestFiled,
     authRequestFailed,
     authRequestSuccess,
@@ -76,9 +76,9 @@ const {
     userUpdateSuccessed
 } = actions;
 
-const authRequested = createAction("users/authRequested");
-const userUpdateFailed = createAction("users/userUpdateFailed");
-const userUpdateRequested = createAction("users/userUpdateRequested");
+const authRequested = createAction('users/authRequested');
+const userUpdateFailed = createAction('users/userUpdateFailed');
+const userUpdateRequested = createAction('users/userUpdateRequested');
 
 export const login =
     ({ payload, redirect }) =>
@@ -108,7 +108,7 @@ export const signUp = (payload) =>
             const data = await authService.register(payload);
             localStorageService.setTokens(data);
             dispatch(authRequestSuccess({ userId: data.userId }));
-            history.push("/users");
+            history.push('/users');
         } catch (error) {
             dispatch(authRequestFailed(error.message));
         }
@@ -116,13 +116,13 @@ export const signUp = (payload) =>
 export const logOut = () => (dispatch) => {
     localStorageService.removeAuthData();
     dispatch(userLoggedOut());
-    history.push("/");
+    history.push('/');
 };
 export const loadUsersList = () => async (dispatch) => {
     dispatch(usersRequested());
     try {
         const { content } = await userService.get();
-        dispatch(usersReceved(content));
+        dispatch(usersReceived(content));
     } catch (error) {
         dispatch(usersRequestFiled(error.message));
     }
