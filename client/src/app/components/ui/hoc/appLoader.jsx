@@ -6,6 +6,11 @@ import {
     getUsersLoadingStatus,
     loadUsersList
 } from "../../../store/users";
+
+import { loadCitiesGeList } from "../../../store/citiesGE";
+import { loadHotelsGeList } from "../../../store/hotelsGE";
+
+
 import { loadQualitiesList } from "../../../store/qualities";
 import { loadProfessionsList } from "../../../store/professions";
 
@@ -14,6 +19,9 @@ const AppLoader = ({ children }) => {
     const isLoggedIn = useSelector(getIsLoggedIn());
     const usersStatusLoading = useSelector(getUsersLoadingStatus());
     useEffect(() => {
+        dispatch(loadCitiesGeList());
+        dispatch(loadHotelsGeList());
+
         dispatch(loadQualitiesList());
         dispatch(loadProfessionsList());
         if (isLoggedIn) {
