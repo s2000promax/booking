@@ -14,7 +14,10 @@ const schema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    location: {
+        type: Schema.Types.ObjectId,
+        ref: 'CitiesGE' },
 }, {
     timestamps: true
 });

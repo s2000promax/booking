@@ -1,38 +1,79 @@
 [
   {
     "_id": "67rdca3eeb7f6fgeed471198",
+    "location": "62f48fa25217bd9fc7d5b407",
     "name": "Sisno hotel",
     "roomsNumber": 5,
     "rate": 4
   },
   {
     "_id": "67rdca3eeb7f6fgeed471100",
+    "location": "62f48fa25217bd9fc7d5b407",
     "name": "Hotel Flower",
     "roomsNumber": 3,
     "rate": 4
   },
   {
     "_id": "67rdca3eeb7f6fgeed4711012",
+    "location": "62f48fa25217bd9fc7d5b407",
     "name": "Courtyard by Marriott Tbilisi",
     "roomsNumber": 7,
     "rate": 4
   },
   {
     "_id": "67rdca3eeb7f6fgeed471101",
+    "location": "62f48fa25217bd9fc7d5b407",
     "name": "Taberne Boutique Hotel Tbilisi",
     "roomsNumber": 6,
     "rate": 4
   },
   {
     "_id": "67rdca3eeb7f6fgeed471102",
+    "location": "62f48fa25217bd9fc7d5b407",
     "name": "Hotel Sololaki",
     "roomsNumber": 2,
     "rate": 3
   },
   {
     "_id": "67rdca3eeb7f6fgeed471103",
+    "location": "62f48fa25217bd9fc7d5b407",
     "name": "Museum Hotel",
     "roomsNumber": 5,
+    "rate": 4
+  },
+  {
+    "_id": "67rdca3eeb7f6fgeed4711031",
+    "location": "62f48fa25217bd9fc7d5b40a",
+    "name": "Rustavi Hotel",
+    "roomsNumber": 9,
+    "rate": 4
+  },
+  {
+    "_id": "67rdca3eeb7f6fgeed4711031",
+    "location": "62f48fa25217bd9fc7d5b40a",
+    "name": "Rustavi Star",
+    "roomsNumber": 4,
+    "rate": 4
+  },
+  {
+    "_id": "67rdca3eeb7f6fgeed4711031",
+    "location": "62f48fa25217bd9fc7d5b40a",
+    "name": "Courtyard by Marriott Rustavi",
+    "roomsNumber": 6,
+    "rate": 4
+  },
+  {
+    "_id": "67rdca3eeb7f6fgeed4711031",
+    "location": "62f48fa25217bd9fc7d5b40a",
+    "name": "Minima Hotel Rustavi",
+    "roomsNumber": 3,
+    "rate": 4
+  },
+  {
+    "_id": "67rdca3eeb7f6fgeed4711031",
+    "location": "62f48fa25217bd9fc7d5b40a",
+    "name": "Hotel Rustavi Hotel",
+    "roomsNumber": 8,
     "rate": 4
   }
 ]

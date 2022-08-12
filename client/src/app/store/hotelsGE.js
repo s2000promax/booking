@@ -44,10 +44,10 @@ export const loadHotelsGeList = () => async (dispatch, getState) => {
     }
 };
 
-export const getHotelssGE = () => (state) => state.hotelsGE.entities;
+export const getHotelsGE = () => (state) => state.hotelsGE.entities;
 export const getHotelsGeLoadingStatus = () => (state) =>
     state.hotelsGE.isLoading;
-export const getCitiesGeById = (id) => (state) => {
+export const getHotelsGeById = (id) => (state) => {
     if (state.hotelsGE.entities) {
         return state.hotelsGE.entities.find((p) => p._id === id);
     }
