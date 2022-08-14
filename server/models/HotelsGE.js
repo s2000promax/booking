@@ -17,7 +17,11 @@ const schema = new Schema({
     },
     location: {
         type: Schema.Types.ObjectId,
-        ref: 'CitiesGE' },
+        ref: 'CitiesGE'
+    },
+    description: {
+        type: String
+    }
 }, {
     timestamps: true
 });

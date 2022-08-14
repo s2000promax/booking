@@ -23,7 +23,8 @@ function App() {
                         path='/users/:userId?/:edit?'
                         component={Users}
                     />
-                    <Route path='/hotels/:hotelId?' component={hotelPage} />
+
+                    <Route path='/hotels/:hotelId?/' component={hotelPage} />
                     <Route path='/login/:type?' component={Login} />
                     <Route path='/logout' component={LogOut} />
                     <Route path='/' exact component={Main} />

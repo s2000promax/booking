@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserById } from "../../../store/users";
 import {
-  Avatar, Divider, IconButton,
+  Avatar, Button, Divider, IconButton,
   List,
   ListItem,
   ListItemAvatar,
@@ -14,16 +14,23 @@ import {
   Typography
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
 
 import { getSchedule, loadScheduleList, removeSchedule } from '../../../store/schedule';
 import { getHotelsGE, getHotelsGeById } from '../../../store/hotelsGE';
+import { useHistory } from 'react-router-dom';
+import AddHotelForm from '../../ui/addHotelForm';
+import UserCard from '../../ui/userCard';
 
 
 const UserPage = ({ userId }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const hotelsGE = useSelector(getHotelsGE());
   const user = useSelector(getUserById(userId));
   const schedule = useSelector(getSchedule());
+
+  const [addHotel, setAddHotel] = useState(false);
 
   const scheduleInfo = [];
   console.log(user)
@@ -47,6 +54,10 @@ const UserPage = ({ userId }) => {
     dispatch(removeSchedule(event.target.closest('button').dataset.scheduleid))
   }
 
+  const handleClick = (event) => {
+    setAddHotel(prevState => !prevState);
+  }
+
 
   if (user.type === 'client') {
     return (
@@ -58,22 +69,10 @@ const UserPage = ({ userId }) => {
           height='100vh'
 
         >
-          <Stack alignItems='center' justifyContent='center' width='30%' bgcolor='yellow'>
-            <Paper
+          <UserCard user={user} />
 
-              sx={{
-                width: '400px',
-                height: '600px'
-              }}
-            >
-              {Object.keys(user).map(key => (
-                <Typography key={key}>
-                  {key} {':'}
-                  <span>{' '} {user[key]}</span>
-                </Typography>
-              ))}
-            </Paper>
-          </Stack>
+
+
           <Stack width='70%' bgcolor='green' alignItems='center'>
 
             <List sx={{ mt: '5px', width: '100%', maxWidth: '500px', bgcolor: 'background.paper' }}>
@@ -129,24 +128,67 @@ const UserPage = ({ userId }) => {
 
         >
           <Stack alignItems='center' justifyContent='center' width='30%' bgcolor='yellow'>
-            <Paper
+            <UserCard user={user} />
 
-              sx={{
-                width: '400px',
-                height: '600px'
-              }}
-            >
-              {Object.keys(user).map(key => (
-                <Typography key={key}>
-                  {key} {':'}
-                  <span>{' '} {user[key]}</span>
-                </Typography>
-              ))}
-            </Paper>
+            <Stack alignItems='center' justifyContent='center' width='30%' bgcolor='yellow'>
+
+
+              <button
+                type='button'
+                className='btn btn-primary w-100 mx-auto'
+                onClick={handleClick}
+              >
+                {addHotel ? 'Show my hotels' : 'Add new hotel'}
+              </button>
+
+            </Stack>
+
           </Stack>
           <Stack width='70%' bgcolor='green' alignItems='center'>
 
+            {addHotel
+              ? (
+                <>
+                  <AddHotelForm userId={userId} />
+                </>
+              )
+              : (
+                <>
+                  <Typography>List of my Hotels</Typography>
+                  <List sx={{ mt: '5px', width: '100%', maxWidth: '500px', bgcolor: 'background.paper' }}>
+                    {
+                      hotelsGE.filter(item => item.owner === userId).map((item, index) => (
+                        <>
+                          <ListItem alignItems="flex-start" key={`schedule-list-${index}`}>
+                            <ListItemAvatar>
+                              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={item.name}
+                              secondary={
+                                <>
+                                  <Typography
+                                    sx={{ display: 'inline' }}
+                                    component="span"
+                                    variant="body2"
+                                    color="text.primary"
+                                  >
+                                    Total {item.roomsNumber}. Booking {'1'}. Free {item.roomsNumber - 1}
+                                  </Typography>
+                                  {' '}
+                                </>
+                              }
+                            />
+                          </ListItem>
+                          <Divider variant="inset" component="li"/>
+                        </>
+                      ))
+                    }
 
+
+                  </List>
+                </>
+              )}
 
 
           </Stack>
