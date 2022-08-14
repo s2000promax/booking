@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Pagination, Stack, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getHotelsGE } from '../../store/hotelsGE';
 import { getSearchRequest, getSearchStatus } from '../../store/searchRequest';
 import HotelCard from './hotelCard';
 import { paginate } from '../../utils/paginate';
+import { loadScheduleList } from '../../store/schedule';
 
 const HotelsList = () => {
+
   const hotelsGE = useSelector(getHotelsGE());
 
   const isSearch = useSelector(getSearchStatus());

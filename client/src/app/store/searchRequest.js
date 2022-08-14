@@ -13,12 +13,16 @@ const searchRequestSlice = createSlice({
     },
     searchRequestFinish: (state) => {
       state.isSearchRequested = false;
+    },
+    searchRequestClear: (state) => {
+      state.isSearchRequested = false;
+      state.entities = [];
     }
   }
 });
 
 const {reducer: searchRequestReducer, actions} = searchRequestSlice;
-const { searchRequestStart, searchRequestFinish } = actions;
+const { searchRequestStart, searchRequestFinish, searchRequestClear } = actions;
 
 export const searchStart = (payload) => async (dispatch) => {
   try {
@@ -28,8 +32,12 @@ export const searchStart = (payload) => async (dispatch) => {
   }
 }
 
-export const searchFinish = () => (dispatch) => {
-  dispatch(searchRequestFinish());
+export const searchClear = () => async (dispatch) => {
+    await dispatch(searchRequestClear());
+}
+
+export const searchFinish = () => async (dispatch) => {
+  await dispatch(searchRequestFinish());
 }
 
 export const getSearchStatus = () => (state) => state.search.isSearchRequested;

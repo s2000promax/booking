@@ -21,6 +21,7 @@ import { Search } from '@mui/icons-material';
 
 import { getCitiesGE } from '../../store/citiesGE';
 import { searchStart } from '../../store/searchRequest';
+import { loadScheduleList } from '../../store/schedule';
 
 const SearchPanel = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,8 @@ const SearchPanel = () => {
       dateStart: dateSchedule[0].getTime(),
       dateEnd: dateSchedule[1].getTime()
     }));
+
+    dispatch(loadScheduleList());
   }
 
   return (

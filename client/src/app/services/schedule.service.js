@@ -4,19 +4,19 @@ import localStorageService from './localStorage.service';
 const scheduleEndpoint = 'schedule/';
 
 const scheduleService = {
-    getSchedualList: async () => {
+    getScheduleList: async () => {
         const req = await httpService.get(scheduleEndpoint);
         return req.data;
     },
-    createSchedual: async (payload) => {
+    createSchedule: async (payload) => {
         const { data } = await httpService.post(scheduleEndpoint, payload);
         return data;
     },
-    removeSchedual: async (commentId) => {
-        const { data } = await httpService.delete(scheduleEndpoint + commentId);
+    removeSchedule: async (scheduleId) => {
+        const { data } = await httpService.delete(scheduleEndpoint + scheduleId);
         return data;
     },
-    updateSchedual: async (payload) => {
+    updateSchedule: async (payload) => {
         const { data } = await httpService.patch(
           scheduleEndpoint + localStorageService.getUserId(),
           payload

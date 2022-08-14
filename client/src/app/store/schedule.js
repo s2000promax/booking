@@ -69,24 +69,21 @@ const updateScheduleFailed = createAction('schedule/updateScheduleFailed');
 const removeScheduleRequested = createAction('schedule/removeScheduleRequested');
 
 
-export const loadScheduleList = () => async (dispatch, getState) => {
-  const { lastFetch } = getState().schedule;
-  if (isOutdated(lastFetch)) {
+export const loadScheduleList = () => async (dispatch) => {
     dispatch(scheduleRequested());
 
     try {
-      const { content} = await scheduleService.getSchedualList();
+      const { content} = await scheduleService.getScheduleList();
       dispatch(scheduleReceived(content));
     } catch (error) {
       dispatch(scheduleReceivedFailed(error.message));
     }
-  }
 };
 
 export const createSchedule = (payload) => async (dispatch, getState) => {
   dispatch(addScheduleRequested());
   try {
-    const { content } = await scheduleService.createSchedual(payload);
+    const { content } = await scheduleService.createSchedule(payload);
     dispatch(scheduleCreated(content));
   } catch (error) {
     dispatch(scheduleReceivedFailed(error.message));
@@ -96,7 +93,7 @@ export const createSchedule = (payload) => async (dispatch, getState) => {
 export const removeSchedule = (scheduleId) => async (dispatch) => {
   dispatch(removeScheduleRequested());
   try {
-    const { content } = await scheduleService.removeSchedual(scheduleId);
+    const { content } = await scheduleService.removeSchedule(scheduleId);
     if (!content) {
       dispatch(scheduleRemoved(scheduleId));
     }
@@ -108,12 +105,14 @@ export const removeSchedule = (scheduleId) => async (dispatch) => {
 export const updateSchedule = (payload) => async (dispatch) => {
   dispatch(updateScheduleRequested());
   try {
-    const { content } = await scheduleService.updateSchedual(payload);
+    const { content } = await scheduleService.updateSchedule(payload);
     dispatch(scheduleUpdateSuccessed(content));
     // history.push(`/users/${content._id}`);
   } catch (error) {
     dispatch(updateScheduleFailed(error.message));
   }
 };
+
+export const getSchedule = () => (state) => state.schedule.entities;
 
 export default scheduleReducer;

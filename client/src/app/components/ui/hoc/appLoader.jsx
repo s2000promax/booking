@@ -9,6 +9,7 @@ import {
 
 import { loadCitiesGeList } from "../../../store/citiesGE";
 import { loadHotelsGeList } from "../../../store/hotelsGE";
+import { loadScheduleList } from '../../../store/schedule';
 
 
 const AppLoader = ({ children }) => {
@@ -18,7 +19,6 @@ const AppLoader = ({ children }) => {
     useEffect(() => {
         dispatch(loadCitiesGeList());
         dispatch(loadHotelsGeList());
-
         if (isLoggedIn) {
             dispatch(loadUsersList());
         }

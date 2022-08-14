@@ -31,9 +31,6 @@ const { hotelsGeRequested, hotelsGeReceived, hotelsGeRequestFailed } =
     actions;
 
 export const loadHotelsGeList = () => async (dispatch, getState) => {
-    const { lastFetch } = getState().hotelsGE;
-    if (isOutdated(lastFetch)) {
-        console.log("lastFetch", lastFetch);
         dispatch(hotelsGeRequested());
         try {
             const { content } = await hotelsGEService.get();
@@ -41,14 +38,13 @@ export const loadHotelsGeList = () => async (dispatch, getState) => {
         } catch (error) {
             dispatch(hotelsGeRequestFailed(error.message));
         }
-    }
 };
 
 export const getHotelsGE = () => (state) => state.hotelsGE.entities;
-export const getHotelsGeLoadingStatus = () => (state) =>
-    state.hotelsGE.isLoading;
+export const getHotelsGeLoadingStatus = () => (state) => state.hotelsGE.isLoading;
 export const getHotelsGeById = (id) => (state) => {
     if (state.hotelsGE.entities) {
+        console.log('sadasasdasasd')
         return state.hotelsGE.entities.find((p) => p._id === id);
     }
 };
