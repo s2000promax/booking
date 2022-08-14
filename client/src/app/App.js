@@ -10,9 +10,11 @@ import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from './components/common/protectedRoute';
 import LogOut from './layouts/logOut';
 import AppLoader from './components/ui/hoc/appLoader';
+import hotelPage from './components/page/hotelPage';
 
 function App() {
-    return (
+
+  return (
         <div>
             <AppLoader>
                 <NavBar />
@@ -21,6 +23,7 @@ function App() {
                         path='/users/:userId?/:edit?'
                         component={Users}
                     />
+                    <ProtectedRoute path='/hotels/:hotelId?/' component={hotelPage} />
                     <Route path='/login/:type?' component={Login} />
                     <Route path='/logout' component={LogOut} />
                     <Route path='/' exact component={Main} />

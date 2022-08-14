@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getHotelssGE } from '../../store/hotelsGE';
+import { getHotelsGE } from '../../store/hotelsGE';
 import { createSchedule } from '../../store/schedule';
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { getCurrentUserId } from '../../store/users';
+import { getSearchStatus } from '../../store/searchRequest';
 
 const HotelsGeList = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const HotelsGeList = () => {
 
   const [hotelId, setHotelId] = useState(null);
 
-  const hotelsGE = useSelector(getHotelssGE());
+  const hotelsGE = useSelector(getHotelsGE());
   console.log(hotelsGE, startDate, endDate);
 
   const handlerClick = (event) => {
