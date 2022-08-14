@@ -8,14 +8,16 @@ import { Button, Card, CardActions, CardContent, CardMedia, Stack, Typography } 
 import GradeIcon from '@mui/icons-material/Grade';
 import { yellow } from '@mui/material/colors';
 import { getSearchRequest, searchClear } from '../../../store/searchRequest';
-import hotelPage from './index';
 import { createSchedule } from '../../../store/schedule';
-import { getCurrentUserId } from '../../../store/users';
+import { getCurrentUserId, getUserById } from '../../../store/users';
 
 const HotelPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const params = useParams();
+
+  const userId = useSelector(getCurrentUserId());
+  const user = useSelector(getUserById(userId));
 
   const currentHotel = useSelector(getHotelsGeById(params.hotelId));
   const searchRequest = useSelector(getSearchRequest());
@@ -34,8 +36,6 @@ const HotelPage = () => {
       nights: (searchRequest.dateEnd - searchRequest.dateStart) / 1000 / 3600 / 24,
     })
   }, [searchRequest]);
-
-  console.log('Hi', information)
 
   const handleClick = (event) => {
     switch (event.target.dataset.button) {
@@ -96,14 +96,23 @@ const HotelPage = () => {
                 ))
               }
             </CardContent>
-            <Typography color="text.secondary" sx={{ ml: '20px' }}>
-              Dear guest, you are schedule one room in our hotel {currentHotel.name}
-              <p
-                sx={{ pl: '20px' }}>From {information.dateStart} to {information.dateEnd} for {information.nights} nights</p>
-            </Typography>
+            {
+              user.type !== 'business' && (
+                <Typography color="text.secondary" sx={{ ml: '20px' }}>
+                  Dear guest, you are schedule one room in our hotel {currentHotel.name}
+                  <p
+                    sx={{ pl: '20px' }}>From {information.dateStart} to {information.dateEnd} for {information.nights} nights</p>
+                </Typography>
+              )
+            }
+
             <CardActions>
               <Button size="small" data-button='BACK' onClick={handleClick}>Back</Button>
-              <Button size="small" data-button='SCHEDULE' onClick={handleClick}>Schedule</Button>
+              {
+                user.type !== 'business' && (
+                  <Button size="small" data-button='SCHEDULE' onClick={handleClick}>Schedule</Button>
+                )
+              }
             </CardActions>
           </Card>
         </Stack>

@@ -21,6 +21,9 @@ const schema = new Schema({
     },
     description: {
         type: String
+    },
+    price: {
+        type: String
     }
 }, {
     timestamps: true

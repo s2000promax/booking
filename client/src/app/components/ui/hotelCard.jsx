@@ -3,8 +3,10 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@
 import GradeIcon from '@mui/icons-material/Grade';
 import { yellow } from '@mui/material/colors';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getCurrentUserId, getUserById } from '../../store/users';
 
-const HotelCard = ({ _id, name, roomsNumber, rate }) => {
+const HotelCard = ({ _id, name, description, rate }) => {
 const history = useHistory();
 
 const handleClick = (event) => {
@@ -26,8 +28,7 @@ const handleClick = (event) => {
             {name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {description}
           </Typography>
           {
             !!rate && new Array(rate).fill(null).map((item, index) => (

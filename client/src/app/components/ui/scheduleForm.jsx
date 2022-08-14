@@ -1,30 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import TextField from '../common/form/textField';
-import SelectField from '../common/form/selectField';
-import RadioField from '../common/form/radio.Field';
-import { useSelector, useDispatch } from 'react-redux';
-import { getCitiesGE } from '../../store/citiesGE';
-import { Stack } from '@mui/material';
+import React from 'react';
+import { Stack, Typography } from '@mui/material';
 import SearchPanel from './searchPanel';
-import { getSearchRequest, getSearchStatus, searchFinish } from '../../store/searchRequest';
-import HotelCard from './hotelCard';
 import HotelsList from './hotelsList';
+import { useSelector } from 'react-redux';
+import { getHotelsGE } from '../../store/hotelsGE';
+import { getFirstSearchStatus, getSearchRequest } from '../../store/searchRequest';
 
 const ScheduleForm = () => {
-  const dispatch = useDispatch();
-
-
-
-
-
-  const [data, setData] = useState({
-    userId: '',
-    hotelId: '',
-    rooms: 0,
-    dateStart: new Date(),
-    dateEnd: new Date()
-  });
-
+  const hotelsGE = useSelector(getHotelsGE());
+  const isFirstSearched = useSelector(getFirstSearchStatus());
+  const searchRequest = useSelector(getSearchRequest());
+  const cityId = searchRequest?.cityId;
+  const onLineSchedule = hotelsGE?.filter(item => item.location === cityId);
 
   return (
     <>
@@ -32,17 +19,22 @@ const ScheduleForm = () => {
         display='flex'
         width='100%'
       >
-        <Stack
-        bgcolor="aliceblue"
-        >
-          <SearchPanel />
-        </Stack>
-        <Stack
-        bgcolor="antiquewhite"
+        <SearchPanel />
 
+        <Stack
+          height='100%'
+          display='flex'
+          direction='column'
+          justifyContent='space-between'
+          alignItems='center'
+          bgcolor='#f3d79a'
         >
-          <HotelsList />
+        <Typography sx={{ mt: '0px' }}>{isFirstSearched && (
+          <h6>Founded {onLineSchedule.length} results:</h6>
+        )}</Typography>
+        <HotelsList onLineSchedule={onLineSchedule}/>
         </Stack>
+
       </Stack>
     </>
   );

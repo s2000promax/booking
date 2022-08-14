@@ -4,7 +4,8 @@ const searchRequestSlice = createSlice({
   name: 'search',
   initialState: {
     entities: null,
-    isSearchRequested: false
+    isSearchRequested: false,
+    isFirstSearch: false
   },
   reducers: {
     searchRequestStart: (state, action) => {
@@ -17,12 +18,15 @@ const searchRequestSlice = createSlice({
     searchRequestClear: (state) => {
       state.isSearchRequested = false;
       state.entities = [];
+    },
+    searchFirstStatus: (state) => {
+      state.isFirstSearch = true;
     }
   }
 });
 
 const {reducer: searchRequestReducer, actions} = searchRequestSlice;
-const { searchRequestStart, searchRequestFinish, searchRequestClear } = actions;
+const { searchRequestStart, searchRequestFinish, searchRequestClear, searchFirstStatus } = actions;
 
 export const searchStart = (payload) => async (dispatch) => {
   try {
@@ -40,7 +44,12 @@ export const searchFinish = () => async (dispatch) => {
   await dispatch(searchRequestFinish());
 }
 
+export const searchFirst = () => (dispatch) => {
+  dispatch(searchFirstStatus());
+}
+
 export const getSearchStatus = () => (state) => state.search.isSearchRequested;
 export const getSearchRequest = () => (state) => state.search.entities;
+export const getFirstSearchStatus = () => (state) => state.search.isFirstSearch;
 
 export default searchRequestReducer;

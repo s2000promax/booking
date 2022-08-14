@@ -1,34 +1,37 @@
-import React, { cloneElement, useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-import { useDispatch, useSelector } from "react-redux";
-import { getUserById } from "../../../store/users";
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserById } from '../../../store/users';
 import {
-  Avatar, Button, Divider, IconButton,
+  Avatar, Divider, IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Paper,
   Stack,
   Typography
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SaveIcon from '@mui/icons-material/Save';
 
 import { getSchedule, loadScheduleList, removeSchedule } from '../../../store/schedule';
-import { getHotelsGE, getHotelsGeById } from '../../../store/hotelsGE';
-import { useHistory } from 'react-router-dom';
+import { getHotelsGE } from '../../../store/hotelsGE';
 import AddHotelForm from '../../ui/addHotelForm';
 import UserCard from '../../ui/userCard';
 
 
 const UserPage = ({ userId }) => {
-  const history = useHistory();
+  
+  useEffect(() => {
+    dispatch(loadScheduleList());
+  }, []);
+  
   const dispatch = useDispatch();
   const hotelsGE = useSelector(getHotelsGE());
   const user = useSelector(getUserById(userId));
   const schedule = useSelector(getSchedule());
+
+  console.log(schedule);
 
   const [addHotel, setAddHotel] = useState(false);
 
@@ -67,7 +70,6 @@ const UserPage = ({ userId }) => {
           direction='row'
           width='100%'
           height='100vh'
-
         >
           <UserCard user={user} />
 
@@ -79,9 +81,9 @@ const UserPage = ({ userId }) => {
               {
                 scheduleInfo.map((item, index) => (
                   <>
-                    <ListItem alignItems="flex-start" key={`schedule-list-${index}`}>
+                    <ListItem alignItems='flex-start' key={`schedule-list-${index}`}>
                       <ListItemAvatar>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+                        <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg'/>
                       </ListItemAvatar>
                       <ListItemText
                         primary={item.hotelName}
@@ -89,9 +91,9 @@ const UserPage = ({ userId }) => {
                           <>
                             <Typography
                               sx={{ display: 'inline' }}
-                              component="span"
-                              variant="body2"
-                              color="text.primary"
+                              component='span'
+                              variant='body2'
+                              color='text.primary'
                             >
                               From {item.dateStart} to {item.dateEnd} for {item.nights} nights
                             </Typography>
@@ -99,11 +101,11 @@ const UserPage = ({ userId }) => {
                           </>
                         }
                       />
-                      <IconButton edge="end" aria-label="delete" data-scheduleId={item.scheduleId}>
+                      <IconButton edge='end' aria-label='delete' data-scheduleId={item.scheduleId}>
                         <DeleteIcon onClick={handleDelete} />
                       </IconButton>
                     </ListItem>
-                    <Divider variant="inset" component="li"/>
+                    <Divider variant='inset' component='li'/>
                   </>
                 ))
               }
@@ -159,9 +161,9 @@ const UserPage = ({ userId }) => {
                     {
                       hotelsGE.filter(item => item.owner === userId).map((item, index) => (
                         <>
-                          <ListItem alignItems="flex-start" key={`schedule-list-${index}`}>
+                          <ListItem alignItems='flex-start' key={`schedule-list-${index}`}>
                             <ListItemAvatar>
-                              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+                              <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg'/>
                             </ListItemAvatar>
                             <ListItemText
                               primary={item.name}
@@ -169,9 +171,9 @@ const UserPage = ({ userId }) => {
                                 <>
                                   <Typography
                                     sx={{ display: 'inline' }}
-                                    component="span"
-                                    variant="body2"
-                                    color="text.primary"
+                                    component='span'
+                                    variant='body2'
+                                    color='text.primary'
                                   >
                                     Total {item.roomsNumber}. Booking {'1'}. Free {item.roomsNumber - 1}
                                   </Typography>
@@ -180,7 +182,7 @@ const UserPage = ({ userId }) => {
                               }
                             />
                           </ListItem>
-                          <Divider variant="inset" component="li"/>
+                          <Divider variant='inset' component='li'/>
                         </>
                       ))
                     }
