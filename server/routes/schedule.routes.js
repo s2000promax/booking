@@ -6,7 +6,7 @@ const router = express.Router({ mergeParams: true });
 // /api/comment
 router
   .route('/')
-  .get(auth, async (req, res) => {
+  .get(async (req, res) => {
     try {
       const list = await Schedule.find();
       res.send(list);

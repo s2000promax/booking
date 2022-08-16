@@ -108,7 +108,7 @@ const SearchPanel = () => {
       >
         <Stack
           justifyItems='center'
-          width='200px'
+          width='230px'
         >
           <FormControl>
             <InputLabel id='location-select-label'>Location</InputLabel>
@@ -147,8 +147,7 @@ const SearchPanel = () => {
               renderInput={(startProps, endProps) => (
                 <>
                   <TextField {...startProps} />
-                  <Box sx={{ mx: 2 }}> to </Box>
-                  <TextField {...endProps} />
+                  <TextField {...endProps} sx={{ ml: '16px' }} />
                 </>
               )}
             />
@@ -160,7 +159,8 @@ const SearchPanel = () => {
             variant='contained'
             endIcon={<Search/>}
             sx={{
-              ml: '16px',
+              ml: '-6px',
+              width: '180px',
               height: '55px'
             }}
             onClick={handleSearchRequest}

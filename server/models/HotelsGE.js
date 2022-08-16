@@ -24,6 +24,9 @@ const schema = new Schema({
     },
     price: {
         type: String
+    },
+    image: {
+        type: String
     }
 }, {
     timestamps: true

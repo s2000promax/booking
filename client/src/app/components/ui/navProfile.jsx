@@ -21,8 +21,7 @@ const NavProfile = () => {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Typography variant='h6' sx={{ color: '#e1dede' }}>{currentUser.name}</Typography>
-
+        {/*<Typography variant='h6' sx={{ color: '#e1dede' }}>{currentUser.name}</Typography>*/}
         <Tooltip title='Account settings'>
           <IconButton
             onClick={handleClick}

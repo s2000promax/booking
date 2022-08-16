@@ -21,6 +21,8 @@ const AddHotelForm = ({ userId }) => {
         owner: '',
         location: '',
         description: '',
+        price: '',
+        image: ''
     });
 
     const citiesGeList = useSelector(getCitiesGE()).map((p) => ({
@@ -36,15 +38,18 @@ const AddHotelForm = ({ userId }) => {
         label: index + 1,
         value: index
     }));
-    console.log(roomsCountList)
+    const imgList = new Array(25).fill().map((_, index) => ({
+        label: index + 1,
+        value: index + 1
+    }));
 
     const [errors, setErrors] = useState({});
-
+    console.log(data)
     const handleChange = (target) => {
-        setData((prevState) => ({
-            ...prevState,
-            [target.name]: target.value
-        }));
+            setData((prevState) => ({
+                ...prevState,
+                [target.name]: target.value
+            }));
     };
     const validatorConfig = {
         name: {
@@ -80,6 +85,16 @@ const AddHotelForm = ({ userId }) => {
                 message: 'Field is required'
             }
         },
+        price: {
+            isRequired: {
+                message: 'Field is required'
+            }
+        },
+        image: {
+            isRequired: {
+                message: 'Field is required'
+            }
+        }
     };
 
     useEffect(() => {
@@ -141,6 +156,13 @@ const AddHotelForm = ({ userId }) => {
               value={data.roomsNumber}
               error={errors.roomsNumber}
             />
+            <TextField
+              label='Price'
+              name='price'
+              value={data.price}
+              onChange={handleChange}
+              error={errors.price}
+            />
             <SelectField
               label='Rate'
               defaultOption='Choose...'
@@ -149,6 +171,15 @@ const AddHotelForm = ({ userId }) => {
               onChange={handleChange}
               value={data.rate}
               error={errors.rate}
+            />
+            <SelectField
+              label='Image'
+              defaultOption='Choose...'
+              name='image'
+              options={imgList}
+              onChange={handleChange}
+              value={data.image}
+              error={errors.image}
             />
             <button
                 type='submit'

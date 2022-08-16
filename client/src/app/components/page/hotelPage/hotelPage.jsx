@@ -20,6 +20,7 @@ const HotelPage = () => {
   const user = useSelector(getUserById(userId));
 
   const currentHotel = useSelector(getHotelsGeById(params.hotelId));
+  const imagePath = `/images/${currentHotel.image}.jpg`
   const searchRequest = useSelector(getSearchRequest());
   const currentUserId = useSelector(getCurrentUserId());
 
@@ -67,16 +68,16 @@ const HotelPage = () => {
       <>
         <Stack display='flex'
                width='100%'
-               height='100vh'
                direction='column'
                justifyContent='center'
                alignItems='center'
+               sx={{ mt: '20px' }}
         >
           <Card sx={{ width: '1000px', height: '600px' }}>
             <CardMedia
               component="img"
               height="340"
-              image="/static/images/cards/contemplative-reptile.jpg"
+              image={imagePath}
               alt="green iguana"
               sx={{
                 background: '#f5e4ac'
@@ -96,15 +97,24 @@ const HotelPage = () => {
                 ))
               }
             </CardContent>
-            {
-              user.type !== 'business' && (
-                <Typography color="text.secondary" sx={{ ml: '20px' }}>
-                  Dear guest, you are schedule one room in our hotel {currentHotel.name}
-                  <p
-                    sx={{ pl: '20px' }}>From {information.dateStart} to {information.dateEnd} for {information.nights} nights</p>
-                </Typography>
-              )
-            }
+
+
+            <Stack display='flex' direction='row' justifyContent='space-between'>
+              <Stack display='flex' direction='row'>
+                {
+                  user.type !== 'business' && (
+                    <Typography color="text.secondary" sx={{ ml: '20px' }}>
+                      Dear guest, you are schedule one room in our hotel {currentHotel.name}
+                      <p
+                        sx={{ pl: '20px' }}>From {information.dateStart} to {information.dateEnd} for {information.nights} nights</p>
+                    </Typography>
+                  )
+                }
+              </Stack>
+              <Stack>
+                <Typography color="text.primary" sx={{ mr: '10px' }}>{currentHotel.price} {' $'}</Typography>
+              </Stack>
+            </Stack>
 
             <CardActions>
               <Button size="small" data-button='BACK' onClick={handleClick}>Back</Button>

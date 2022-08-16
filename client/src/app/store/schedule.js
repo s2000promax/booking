@@ -114,5 +114,6 @@ export const updateSchedule = (payload) => async (dispatch) => {
 };
 
 export const getSchedule = () => (state) => state.schedule.entities;
+export const getScheduleByUserId = (userId) => (state) => state.schedule.entities.filter(item => item.userId === userId);
 
 export default scheduleReducer;

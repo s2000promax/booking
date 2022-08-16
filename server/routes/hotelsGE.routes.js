@@ -1,7 +1,6 @@
 const express = require('express');
 const HotelsGE = require('../models/HotelsGE');
 const auth = require('../middleware/auth.middleware');
-const Schedule = require('../models/Schedule');
 const router = express.Router({ mergeParams: true });
 
 router.get('/', async (req, res) => {

@@ -27,3 +27,7 @@ export function displayDate(data) {
         date.getFullYear() + "." + (date.getMonth() + 1) + "_" + date.getDate()
     );
 }
+
+export function getDateDDMMYYY(dateInMS) {
+    return `${new Date(dateInMS * 1).getDate()} / ${new Date(dateInMS * 1).getMonth()} / ${new Date(dateInMS * 1).getFullYear()}`
+}

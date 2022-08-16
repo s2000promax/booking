@@ -63,6 +63,7 @@ export const addNewHotel = (payload) =>
 
 export const getHotelsGE = () => (state) => state.hotelsGE.entities;
 export const getHotelsGeLoadingStatus = () => (state) => state.hotelsGE.isLoading;
+export const getOwnerHotels = (userId) => (state) => state.hotelsGE.entities.filter(hotel => hotel.owner === userId);
 export const getHotelsGeById = (id) => (state) => {
     if (state.hotelsGE.entities) {
         return state.hotelsGE.entities.find((p) => p._id === id);
