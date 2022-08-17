@@ -22,11 +22,9 @@ import { getCitiesGE } from '../../store/citiesGE';
 import { searchFirst, searchStart } from '../../store/searchRequest';
 import { loadScheduleList } from '../../store/schedule';
 import { validator } from '../../utils/ validator';
-import { getCurrentUserId } from '../../store/users';
 
 const SearchPanel = () => {
   const dispatch = useDispatch();
-  const userId = useSelector(getCurrentUserId());
 
   const [data, setData] = useState({
     cityId: '',
@@ -35,6 +33,11 @@ const SearchPanel = () => {
   });
 
   const [dateSchedule, setDateSchedule] = useState([null, null]);
+
+  useEffect(() => {
+    dispatch(loadScheduleList());
+    console.log(dateSchedule[0]?.getTime());
+  },[dateSchedule]);
 
   const [errors, setErrors] = useState({});
 
@@ -91,10 +94,6 @@ const SearchPanel = () => {
 
     dispatch(searchFirst());
     dispatch(searchStart(newData));
-
-    if (!!userId) {
-      dispatch(loadScheduleList());
-    }
   }
 
   return (

@@ -109,7 +109,7 @@ export const signUp = (payload) =>
             const data = await authService.register(payload);
             localStorageService.setTokens(data);
             dispatch(authRequestSuccess({ userId: data.userId }));
-            history.push('/users');
+            history.push(`/users/${data.userId}`);
         } catch (error) {
             dispatch(authRequestFailed(error.message));
         }

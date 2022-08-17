@@ -55,7 +55,10 @@ export const addNewHotel = (payload) =>
       dispatch(addNewHotelsRequested());
       try {
           const { content } = await hotelsGEService.post(payload);
-          dispatch(hotelCreated(content));
+
+          dispatch(hotelCreated(content.owner));
+          dispatch(loadHotelsGeList());
+          history.push(`/users/${content.owner}`);
       } catch (error) {
           dispatch(hotelsGeRequestFailed(error.message));
       }

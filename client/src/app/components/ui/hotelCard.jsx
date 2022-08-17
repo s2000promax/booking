@@ -17,39 +17,56 @@ const handleClick = (event) => {
 }
   return (
     <>
-      <Card sx={{ width: 380 }} key={`hotel-card-${_id}`}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={imagePath}
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-          <Stack display='flex' direction='row' justifyContent='space-between'>
-            <Stack display='flex' direction='row'>
-              {
-                !!rate && new Array(rate).fill(null).map((item, index) => (
-                  <GradeIcon key={index} sx={{ color: yellow[600] }}/>
-                ))
-              }
-            </Stack>
-            <Stack>
-              <Typography color="text.primary">{price} {' $'}</Typography>
-            </Stack>
+      <Card sx={{ width: '380px', height: '350px', m: 0 }} key={`hotel-card-${_id}`}>
+        <Stack
+          display='flex'
+          direction='column'
+          width='100%'
+          justifyContent='space-between'
+        >
+          <Stack>
+            <CardMedia
+              component='img'
+              height='140'
+              image={imagePath}
+              alt='hotel image'
+            />
           </Stack>
-
-
-
-        </CardContent>
-        <CardActions>
-          <Button size="small" data-id={_id} onClick={handleClick}>Open</Button>
-        </CardActions>
+        <Stack height='165px'>
+          <CardContent>
+            <Stack
+              display='flex'
+              direction='column'
+              width='100%'
+              justifyContent='space-between'
+            >
+            <Typography gutterBottom variant='h5' component='div' height='55px'>
+              {name}
+            </Typography>
+            <Typography variant='body2' color='text.secondary' height='65px'>
+              {description}
+            </Typography>
+            <Stack display='flex' direction='row' justifyContent='space-between' height='30px'>
+              <Stack display='flex' direction='row'>
+                {
+                  !!rate && new Array(rate).fill(null).map((item, index) => (
+                    <GradeIcon key={index} sx={{ color: yellow[600] }}/>
+                  ))
+                }
+              </Stack>
+              <Stack>
+                <Typography color='text.primary'>{price} {' $'}</Typography>
+              </Stack>
+            </Stack>
+            </Stack>
+          </CardContent>
+        </Stack>
+        <Stack>
+          <CardActions>
+            <Button size='small' data-id={_id} onClick={handleClick}>Open</Button>
+          </CardActions>
+        </Stack>
+        </Stack>
       </Card>
     </>
   );

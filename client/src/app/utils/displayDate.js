@@ -29,5 +29,5 @@ export function displayDate(data) {
 }
 
 export function getDateDDMMYYY(dateInMS) {
-    return `${new Date(dateInMS * 1).getDate()} / ${new Date(dateInMS * 1).getMonth()} / ${new Date(dateInMS * 1).getFullYear()}`
+    return `${new Date(dateInMS * 1).getDate()} / ${new Date(dateInMS * 1).getMonth() + 1} / ${new Date(dateInMS * 1).getFullYear()}`
 }

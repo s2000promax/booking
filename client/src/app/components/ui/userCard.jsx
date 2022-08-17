@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router';
-import { useSelector } from 'react-redux';
-import { getCurrentUserData } from '../../store/users';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Box, Button, Divider, IconButton, Paper, Stack, Typography } from '@mui/material';
 import Settings from '@mui/icons-material/Settings';
 import { getCitiesGE } from '../../store/citiesGE';
 import { Search } from '@mui/icons-material';
+import { searchClear } from '../../store/searchRequest';
 
 const UserCard = ({ user }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const citiesGE = useSelector(getCitiesGE());
 
   const handleClick = () => {
@@ -18,6 +19,8 @@ const UserCard = ({ user }) => {
 
   const handleBackToSearch = () => {
     history.push('/');
+    dispatch(searchClear());
+
   };
 
   return (

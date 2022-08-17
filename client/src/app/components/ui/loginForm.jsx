@@ -5,7 +5,6 @@ import CheckBoxField from '../common/form/checkBoxField';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthErrors, login } from '../../store/users';
-import { loadScheduleList } from '../../store/schedule';
 
 const LoginForm = () => {
     const [data, setData] = useState({

@@ -18,6 +18,7 @@ const searchRequestSlice = createSlice({
     searchRequestClear: (state) => {
       state.isSearchRequested = false;
       state.entities = [];
+      state.isFirstSearch = false;
     },
     searchFirstStatus: (state) => {
       state.isFirstSearch = true;

@@ -22,7 +22,6 @@ const HotelsList = ({ onLineSchedule }) => {
           direction='column'
           alignItems="center"
         >
-
           <Box
             display='flex'
             direction='column'

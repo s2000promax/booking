@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import ScheduleForm from '../components/ui/scheduleForm';
-import Footer from '../components/common/footer';
 import { loadScheduleList } from '../store/schedule';
 import { useDispatch } from 'react-redux';
+import Slider from '../components/common/slider';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const Main = () => {
   return (
     <>
       <ScheduleForm/>
-      <Footer />
+      <Slider />
     </>
   );
 };

@@ -1,24 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import { DataGrid } from '@mui/x-data-grid';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getHotelsGE, getOwnerHotels } from '../../store/hotelsGE';
-import { IconButton, Typography } from '@mui/material';
+import { IconButton, TextField, Typography } from '@mui/material';
 import { getCitiesGE } from '../../store/citiesGE';
 import { useHistory } from 'react-router-dom';
-import { getSchedule } from '../../store/schedule';
+import { getSchedule, loadScheduleList } from '../../store/schedule';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers-pro';
+import { AdapterDateFns } from '@mui/x-date-pickers-pro/AdapterDateFns';
 
 const OwnerHotelsList = ({ userId }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const [date, setDate] = useState(null);
+
+  useEffect(() => {
+    dispatch(loadScheduleList());
+  }, [date]);
 
   const citiesGE = useSelector(getCitiesGE());
   const hotelsGE = useSelector(getHotelsGE());
   const hotels = useSelector(getOwnerHotels(userId));
-  const schedule = useSelector(getSchedule());
+  const schedule = useSelector(getSchedule()).filter(item => item.dateStart * 1 <= date?.getTime() && item.dateEnd * 1 >= date?.getTime());
 
   const scheduledHotels = [];
 
@@ -31,9 +40,12 @@ const OwnerHotelsList = ({ userId }) => {
   hotels.forEach((hOwner) => {
     hotelsRender.push({
       ...hOwner,
-      roomsScheduled: scheduledHotels.filter(hSchedule => hSchedule.owner === userId).filter(h => h._id ===  hOwner._id).length
+      roomsScheduled: scheduledHotels
+        .filter(hSchedule => hSchedule.owner === userId)
+        .filter(h => h._id === hOwner._id).length
     })
   });
+
 
   const columns = [
     {
@@ -77,10 +89,28 @@ const OwnerHotelsList = ({ userId }) => {
       editable: false,
     },
     {
+      field: 'date',
+      headerName: <>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+            label=''
+            value={date}
+            onChange={(newDate) => {
+              setDate(newDate);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+      </>,
+      sortable: false,
+      width: 170,
+      editable: false,
+    },
+    {
       field: 'add',
       headerName: <>
         <IconButton edge='center'>
-          <AddIcon onClick={() => history.push(`/addnewhotel/:${userId}`)}/>
+          <AddIcon onClick={() => history.push(`/addnewhotel/${userId}`)}/>
         </IconButton>
       </>,
       sortable: false,
