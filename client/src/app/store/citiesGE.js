@@ -33,7 +33,6 @@ const { citiesGeRequested, citiesGeReceived, citiesGeRequestFailed } =
 export const loadCitiesGeList = () => async (dispatch, getState) => {
     const { lastFetch } = getState().citiesGE;
     if (isOutdated(lastFetch)) {
-        console.log("lastFetch", lastFetch);
         dispatch(citiesGeRequested());
         try {
             const { content } = await citiesGEService.get();
@@ -52,4 +51,5 @@ export const getCitiesGeById = (id) => (state) => {
         return state.citiesGE.entities.find((p) => p._id === id);
     }
 };
+
 export default citiesGeReducer;

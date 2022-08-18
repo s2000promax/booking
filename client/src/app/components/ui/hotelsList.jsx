@@ -29,7 +29,7 @@ const HotelsList = ({ onLineSchedule }) => {
             width='1300px'
             justifyContent='center'
           >
-            {!!onLineScheduleCrop?.length &&
+            {!!onLineScheduleCrop.length &&
               onLineScheduleCrop.map(item => (
                 <Stack sx={{ ml: '20px', mb: '20px' }} key={item._id}>
                   <HotelCard {...item} key={item._id}/>

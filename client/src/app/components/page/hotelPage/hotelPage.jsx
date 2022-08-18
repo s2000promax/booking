@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from 'react';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { getHotelsGeById } from '../../../store/hotelsGE';
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, Card, CardActions, CardContent, CardMedia, Stack, Typography } from '@mui/material';
@@ -75,21 +74,20 @@ const HotelPage = () => {
         >
           <Card sx={{ width: '1000px', height: '600px' }}>
             <CardMedia
-              component="img"
-              height="340"
+              component='img'
+              height='340'
               image={imagePath}
-              alt="green iguana"
+              alt='green iguana'
               sx={{
                 background: '#f5e4ac'
               }}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant='h5' component='div'>
                 {currentHotel.name}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Lizards are a widespread group of squamate reptiles, with over 6,000
-                species, ranging across all continents except Antarctica
+              <Typography variant='body2' color='text.secondary'>
+                {currentHotel.description}
               </Typography>
               {
                 !!currentHotel.rate && new Array(currentHotel.rate).fill(null).map((item, index) => (
@@ -98,12 +96,11 @@ const HotelPage = () => {
               }
             </CardContent>
 
-
             <Stack display='flex' direction='row' justifyContent='space-between'>
               <Stack display='flex' direction='row'>
                 {
                   user.type !== 'business' && (
-                    <Typography color="text.secondary" sx={{ ml: '20px' }}>
+                    <Typography color='text.secondary' sx={{ ml: '20px' }}>
                       Dear guest, you are schedule one room in our hotel {currentHotel.name}
                       <p
                         sx={{ pl: '20px' }}>From {information.dateStart} to {information.dateEnd} for {information.nights} nights</p>
@@ -112,15 +109,15 @@ const HotelPage = () => {
                 }
               </Stack>
               <Stack>
-                <Typography color="text.primary" sx={{ mr: '10px' }}>{currentHotel.price} {' $'}</Typography>
+                <Typography color='text.primary' sx={{ mr: '10px' }}>{currentHotel.price} {' $'}</Typography>
               </Stack>
             </Stack>
 
             <CardActions>
-              <Button size="small" data-button='BACK' onClick={handleClick}>Back</Button>
+              <Button size='small' data-button='BACK' onClick={handleClick}>Back</Button>
               {
                 user.type !== 'business' && (
-                  <Button size="small" data-button='SCHEDULE' onClick={handleClick}>Schedule</Button>
+                  <Button size='small' data-button='SCHEDULE' onClick={handleClick}>Schedule</Button>
                 )
               }
             </CardActions>

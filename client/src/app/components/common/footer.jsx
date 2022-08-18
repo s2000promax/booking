@@ -10,6 +10,7 @@ const Footer = () => {
         display='flex'
         direction='column'
         alignItems='center'
+        sx={{ mt: '25px' }}
       >
         <Stack>
           <Typography fontSize='0.8em'>

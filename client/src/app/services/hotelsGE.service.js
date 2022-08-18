@@ -12,4 +12,5 @@ const hotelsGEService = {
         return data;
     },
 };
+
 export default hotelsGEService;

@@ -8,4 +8,5 @@ const citiesGEService = {
         return req.data;
     }
 };
+
 export default citiesGEService;

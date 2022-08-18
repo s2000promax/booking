@@ -1,6 +1,5 @@
 import localStorageService from '../services/localStorage.service';
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import isOutdated from '../utils/isOutdated';
 import scheduleService from '../services/schedule.service';
 
 const initialState = localStorageService.getAccessToken()

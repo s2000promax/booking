@@ -12,7 +12,6 @@ import {
   MenuItem,
   Stack,
   Select,
-  Box,
   TextField, Button
 } from '@mui/material';
 
@@ -36,7 +35,6 @@ const SearchPanel = () => {
 
   useEffect(() => {
     dispatch(loadScheduleList());
-    console.log(dateSchedule[0]?.getTime());
   },[dateSchedule]);
 
   const [errors, setErrors] = useState({});

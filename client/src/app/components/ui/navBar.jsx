@@ -5,7 +5,6 @@ import { Link, useHistory } from "react-router-dom";
 import { getIsLoggedIn } from "../../store/users";
 import NavProfile from "./navProfile";
 import { Button, Stack, Typography } from '@mui/material';
-import Footer from '../common/footer';
 
 const NavBar = () => {
   const isLoggedIn = useSelector(getIsLoggedIn());

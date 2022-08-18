@@ -7,6 +7,8 @@ import { getCitiesGE } from '../../store/citiesGE';
 import { useParams } from 'react-router-dom';
 import { addNewHotel } from '../../store/hotelsGE';
 import { Box, Paper, Stack, Typography } from '@mui/material';
+import TextAreaField from '../common/form/textAreaField';
+import BackHistoryButton from '../common/backButton';
 
 const AddHotelForm = () => {
   const params = useParams();
@@ -136,7 +138,7 @@ const AddHotelForm = () => {
         <Paper elevation={12} sx={{ width: '100%' }}>
           <Stack width='100%' height='100%' display='flex' direction='column' alignItems='center'
                  justifyContent='center'>
-            <Typography variant='h6' sx={{ textTransform: 'uppercase', mb: '10px' }}>Add new object reservation</Typography>
+            <Typography variant='h6' sx={{ textTransform: 'uppercase', mb: '20px' }}>Add new object reservation</Typography>
             <form onSubmit={handleSubmit} style={{ width: '1000px' }}>
 
               <Stack
@@ -153,7 +155,7 @@ const AddHotelForm = () => {
                     onChange={handleChange}
                     error={errors.name}
                   />
-                  <TextField
+                  <TextAreaField
                     label='Description'
                     name='description'
                     value={data.description}
@@ -169,6 +171,8 @@ const AddHotelForm = () => {
                     value={data.location}
                     error={errors.location}
                   />
+                </Stack>
+                <Stack width='50%'>
                   <SelectField
                     label='Number of rooms'
                     defaultOption='Choose...'
@@ -178,8 +182,6 @@ const AddHotelForm = () => {
                     value={data.roomsNumber}
                     error={errors.roomsNumber}
                   />
-                </Stack>
-                <Stack width='50%'>
                   <TextField
                     label='Price'
                     name='price'
@@ -207,6 +209,11 @@ const AddHotelForm = () => {
                   />
                 </Stack>
               </Stack>
+              <Stack display='flex' direction='row' spacing='2' justifyContent='space-between'>
+                <Stack width='120px'>
+                  <BackHistoryButton />
+                </Stack>
+                <Stack width='120px'>
               <button
                 type='submit'
                 disabled={!isValid}
@@ -214,6 +221,8 @@ const AddHotelForm = () => {
               >
                 Submit
               </button>
+                </Stack>
+              </Stack>
             </form>
           </Stack>
         </Paper>

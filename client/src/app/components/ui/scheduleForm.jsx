@@ -1,12 +1,11 @@
 import React from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import SearchPanel from './searchPanel';
 import HotelsList from './hotelsList';
 import { useSelector } from 'react-redux';
 import { getHotelsGE } from '../../store/hotelsGE';
 import { getFirstSearchStatus, getSearchRequest } from '../../store/searchRequest';
 import { getSchedule } from '../../store/schedule';
-import Slider from '../common/slider';
 
 const ScheduleForm = () => {
   const hotelsGE = useSelector(getHotelsGE());
@@ -41,7 +40,6 @@ const ScheduleForm = () => {
       }
     });
   }
-
 
   return (
     <>

@@ -1,10 +1,6 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import hotelsGEService from '../services/hotelsGE.service';
-import isOutdated from '../utils/isOutdated';
-import authService from '../services/auth.service';
-import localStorageService from '../services/localStorage.service';
 import history from '../utils/history';
-import scheduleService from '../services/schedule.service';
 
 const hotelsGeSlice = createSlice({
     name: 'hotelsGE',
@@ -72,4 +68,5 @@ export const getHotelsGeById = (id) => (state) => {
         return state.hotelsGE.entities.find((p) => p._id === id);
     }
 };
+
 export default hotelsGeReducer;
