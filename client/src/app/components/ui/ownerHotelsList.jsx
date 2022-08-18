@@ -13,38 +13,48 @@ import { useHistory } from 'react-router-dom';
 import { getSchedule, loadScheduleList } from '../../store/schedule';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers-pro';
 import { AdapterDateFns } from '@mui/x-date-pickers-pro/AdapterDateFns';
+import { getDateNowWithoutTime } from '../../utils/displayDate';
 
 const OwnerHotelsList = ({ userId }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [date, setDate] = useState(null);
-
   useEffect(() => {
     dispatch(loadScheduleList());
   }, [date]);
 
+  const [date, setDate] = useState(getDateNowWithoutTime());
+
   const citiesGE = useSelector(getCitiesGE());
   const hotelsGE = useSelector(getHotelsGE());
   const hotels = useSelector(getOwnerHotels(userId));
-  const schedule = useSelector(getSchedule()).filter(item => item.dateStart * 1 <= date.getTime() && item.dateEnd * 1 >= date.getTime());
+  const scheduleInfo = useSelector(getSchedule());
 
+  const schedule = [];
   const scheduledHotels = [];
-
-  schedule.forEach(sch => {
-    scheduledHotels.push(...hotelsGE.filter(h => h._id === sch.hotelId));
-  });
-
   const hotelsRender = [];
 
-  hotels.forEach((hOwner) => {
-    hotelsRender.push({
-      ...hOwner,
-      roomsScheduled: scheduledHotels
-        .filter(hSchedule => hSchedule.owner === userId)
-        .filter(h => h._id === hOwner._id).length
-    })
-  });
+
+  if (scheduleInfo) {
+    scheduleInfo.forEach(item => {
+      if (item.dateStart * 1 <= date && item.dateEnd * 1 >= date) {
+        schedule.push(item)
+      }
+    });
+
+    schedule.forEach(sch => {
+      scheduledHotels.push(...hotelsGE.filter(h => h._id === sch.hotelId));
+    });
+
+    hotels.forEach((hOwner) => {
+      hotelsRender.push({
+        ...hOwner,
+        roomsScheduled: scheduledHotels
+          .filter(hSchedule => hSchedule.owner === userId)
+          .filter(h => h._id === hOwner._id).length
+      })
+    });
+  }
 
   const addHotelComponent = () => (
     <>
@@ -112,14 +122,14 @@ const OwnerHotelsList = ({ userId }) => {
     },
     {
       field: 'date',
-      headerName: showCalendar,
+      headerName: showCalendar(),
       sortable: false,
       width: 170,
       editable: false,
     },
     {
       field: 'add',
-      headerName: addHotelComponent,
+      headerName: addHotelComponent(),
       sortable: false,
       width: 60,
       editable: false,
