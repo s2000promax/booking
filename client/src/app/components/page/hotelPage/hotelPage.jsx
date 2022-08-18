@@ -45,8 +45,8 @@ const HotelPage = () => {
 
   useEffect(() => {
     setInformation({
-      dateStart: `${new Date(searchRequest.dateStart).getDate()} / ${new Date(searchRequest.dateStart).getMonth()} / ${new Date(searchRequest.dateStart).getFullYear()}`,
-      dateEnd: `${new Date(searchRequest.dateEnd).getDate()} / ${new Date(searchRequest.dateEnd).getMonth()} / ${new Date(searchRequest.dateEnd).getFullYear()}`,
+      dateStart: `${new Date(searchRequest.dateStart).getDate()} / ${new Date(searchRequest.dateStart).getMonth() + 1} / ${new Date(searchRequest.dateStart).getFullYear()}`,
+      dateEnd: `${new Date(searchRequest.dateEnd).getDate()} / ${new Date(searchRequest.dateEnd).getMonth() + 1} / ${new Date(searchRequest.dateEnd).getFullYear()}`,
       nights: (searchRequest.dateEnd - searchRequest.dateStart) / 1000 / 3600 / 24,
     })
   }, [searchRequest]);
