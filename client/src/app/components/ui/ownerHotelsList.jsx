@@ -19,11 +19,11 @@ const OwnerHotelsList = ({ userId }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [date, setDate] = useState(getDateNowWithoutTime());
+
   useEffect(() => {
     dispatch(loadScheduleList());
   }, [date]);
-
-  const [date, setDate] = useState(getDateNowWithoutTime());
 
   const citiesGE = useSelector(getCitiesGE());
   const hotelsGE = useSelector(getHotelsGE());
