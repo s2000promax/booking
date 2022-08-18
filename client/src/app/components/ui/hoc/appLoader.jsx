@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,6 +10,7 @@ import {
 import { loadCitiesGeList } from '../../../store/citiesGE';
 import { loadHotelsGeList } from '../../../store/hotelsGE';
 import Loader from '../../common/loader';
+import { loadScheduleList } from '../../../store/schedule';
 
 const AppLoader = ({ children }) => {
   const dispatch = useDispatch();
@@ -20,6 +21,8 @@ const AppLoader = ({ children }) => {
   useEffect(() => {
     dispatch(loadCitiesGeList());
     dispatch(loadHotelsGeList());
+    dispatch(loadScheduleList());
+
     if (isLoggedIn) {
       dispatch(loadUsersList());
     }

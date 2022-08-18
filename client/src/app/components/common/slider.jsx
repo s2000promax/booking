@@ -40,7 +40,7 @@ const Slider = () => {
                height={hv}
                  id={item}
                  src={item}
-                 alt='image' />
+                 alt='Georgia view' />
         ))}
       </SliderComponent>
     </>

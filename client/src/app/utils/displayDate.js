@@ -31,3 +31,11 @@ export function displayDate(data) {
 export function getDateDDMMYYY(dateInMS) {
     return `${new Date(dateInMS * 1).getDate()} / ${new Date(dateInMS * 1).getMonth() + 1} / ${new Date(dateInMS * 1).getFullYear()}`
 }
+
+export function getDateNowWithoutTime() {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth();
+    const day = new Date().getDate();
+
+    return new Date(year, month, day).getTime()
+}

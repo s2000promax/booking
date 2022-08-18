@@ -24,10 +24,13 @@ const Login = () => {
                             <RegisterForm />
                             <p>
                                 Already have account?{' '}
-                                <a role='button' onClick={toggleFormType}>
+                                {
+                                    // eslint-disable-next-line
+                                     }
+                                <span role='button' onClick={toggleFormType} >
                                     {' '}
                                     Sign In
-                                </a>
+                                </span>
                             </p>
                         </>
                     ) : (
@@ -36,10 +39,10 @@ const Login = () => {
                             <LoginForm />
                             <p>
                                 Don't have account?{' '}
-                                <a role='button' onClick={toggleFormType}>
+                                <span role='button' onClick={toggleFormType} >
                                     {' '}
                                     Sign Up
-                                </a>
+                                </span>
                             </p>
                         </>
                     )}

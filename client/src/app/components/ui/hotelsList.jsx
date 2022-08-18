@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Pagination, Stack,  } from '@mui/material';
 import HotelCard from './hotelCard';
 import { paginate } from '../../utils/paginate';
@@ -8,7 +8,12 @@ const HotelsList = ({ onLineSchedule }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
-  const count = Math.ceil(onLineSchedule?.length / pageSize);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [onLineSchedule]);
+
+
+  const count = Math.ceil(onLineSchedule.length / pageSize);
   const onLineScheduleCrop = paginate(onLineSchedule, currentPage, pageSize);
 
   const handleChange = (event, value) => {

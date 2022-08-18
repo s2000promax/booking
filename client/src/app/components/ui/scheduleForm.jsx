@@ -5,11 +5,15 @@ import HotelsList from './hotelsList';
 import { useSelector } from 'react-redux';
 import { getHotelsGE } from '../../store/hotelsGE';
 import { getFirstSearchStatus, getSearchRequest } from '../../store/searchRequest';
-import { getSchedule } from '../../store/schedule';
+import { getSchedule, getScheduleRequestStatus } from '../../store/schedule';
+import Loader from '../common/loader';
 
 const ScheduleForm = () => {
   const hotelsGE = useSelector(getHotelsGE());
+
   const isFirstSearched = useSelector(getFirstSearchStatus());
+  const isLoading = useSelector(getScheduleRequestStatus());
+
   const searchRequest = useSelector(getSearchRequest());
   const scheduleList = useSelector(getSchedule());
   const indexes = [];
@@ -48,6 +52,11 @@ const ScheduleForm = () => {
         width='100%'
       >
         <SearchPanel/>
+        {
+          isLoading
+          && isFirstSearched
+          && <Loader type={'2'}/>
+        }
         <Stack
           height='100%'
           display='flex'
@@ -56,10 +65,10 @@ const ScheduleForm = () => {
           alignItems='center'
           bgcolor='#f3d79a'
         >
-          <Typography sx={{ mt: '0px' }}>
+          <Typography sx={{ mt: '0px' }} variant='h6'>
             {!!isFirstSearched
-              ? <h6>Founded {onLineSchedule.length} results:</h6>
-              : <></>
+              ? `Founded ${onLineSchedule.length} results:`
+              : ``
             }
           </Typography>
           <HotelsList onLineSchedule={onLineSchedule}/>

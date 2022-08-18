@@ -27,7 +27,7 @@ const OwnerHotelsList = ({ userId }) => {
   const citiesGE = useSelector(getCitiesGE());
   const hotelsGE = useSelector(getHotelsGE());
   const hotels = useSelector(getOwnerHotels(userId));
-  const schedule = useSelector(getSchedule()).filter(item => item.dateStart * 1 <= date?.getTime() && item.dateEnd * 1 >= date?.getTime());
+  const schedule = useSelector(getSchedule()).filter(item => item.dateStart * 1 <= date.getTime() && item.dateEnd * 1 >= date.getTime());
 
   const scheduledHotels = [];
 
@@ -46,6 +46,28 @@ const OwnerHotelsList = ({ userId }) => {
     })
   });
 
+  const addHotelComponent = () => (
+    <>
+      <IconButton edge='center'>
+        <AddIcon onClick={() => history.push(`/addnewhotel/${userId}`)}/>
+      </IconButton>
+    </>
+  );
+
+  const showCalendar = () => (
+    <>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          label=''
+          value={date}
+          onChange={(newDate) => {
+            setDate(newDate);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </LocalizationProvider>
+    </>
+  );
 
   const columns = [
     {
@@ -90,29 +112,14 @@ const OwnerHotelsList = ({ userId }) => {
     },
     {
       field: 'date',
-      headerName: <>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DatePicker
-            label=''
-            value={date}
-            onChange={(newDate) => {
-              setDate(newDate);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
-      </>,
+      headerName: showCalendar,
       sortable: false,
       width: 170,
       editable: false,
     },
     {
       field: 'add',
-      headerName: <>
-        <IconButton edge='center'>
-          <AddIcon onClick={() => history.push(`/addnewhotel/${userId}`)}/>
-        </IconButton>
-      </>,
+      headerName: addHotelComponent,
       sortable: false,
       width: 60,
       editable: false,
@@ -133,18 +140,26 @@ const OwnerHotelsList = ({ userId }) => {
   return (
     <>
       {!!hotelsRender.length
-        ? <Box sx={{ height: '600px', width: '1152px', display: 'flex' }}>
-          <DataGrid
-            disableColumnMenu={true}
-            rows={rows}
-            columns={columns}
-            pageSize={8}
-            checkboxSelection={false}
-            disableSelectionOnClick
-            experimentalFeatures={{ newEditingApi: true }}
-          />
-        </Box>
-        : <Typography>You don't have reservation yet</Typography>
+        ? (
+          <>
+            <Box sx={{ height: '600px', width: '1152px', display: 'flex' }}>
+              <DataGrid
+                disableColumnMenu={true}
+                rows={rows}
+                columns={columns}
+                pageSize={8}
+                checkboxSelection={false}
+                disableSelectionOnClick
+                experimentalFeatures={{ newEditingApi: true }}
+              />
+            </Box>
+          </>
+        )
+        : (
+          <>
+            <Typography>You don't have reservation yet</Typography>
+          </>
+        )
       }
     </>
   );

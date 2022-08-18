@@ -3,12 +3,23 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getHotelsGeById } from '../../../store/hotelsGE';
 import { useHistory, useParams } from 'react-router-dom';
-import { Button, Card, CardActions, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import {
+  Alert,
+  AlertTitle,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Stack,
+  Typography
+} from '@mui/material';
 import GradeIcon from '@mui/icons-material/Grade';
 import { yellow } from '@mui/material/colors';
 import { getSearchRequest, searchClear } from '../../../store/searchRequest';
-import { createSchedule } from '../../../store/schedule';
+import { createSchedule, getScheduleRequestStatus } from '../../../store/schedule';
 import { getCurrentUserId, getUserById } from '../../../store/users';
+import Loader from '../../common/loader';
 
 const HotelPage = () => {
   const history = useHistory();
@@ -22,6 +33,9 @@ const HotelPage = () => {
   const imagePath = `/images/${currentHotel.image}.jpg`
   const searchRequest = useSelector(getSearchRequest());
   const currentUserId = useSelector(getCurrentUserId());
+
+  const isScheduleCreated = useSelector(getScheduleRequestStatus());
+  const [isCongratulation, setIsCongratulation] = useState(false);
 
   const [information, setInformation] = useState({
     dateStart: null,
@@ -42,7 +56,10 @@ const HotelPage = () => {
       case 'BACK':
         history.push('/');
         break;
-      case 'SCHEDULE': {
+
+      case 'SCHEDULE':
+        setIsCongratulation(true);
+
         dispatch(createSchedule({
           userId: currentUserId,
           hotelId: params.hotelId,
@@ -51,12 +68,9 @@ const HotelPage = () => {
           dateEnd: searchRequest.dateEnd
         }));
 
-        // Need Congratulations page!!!
         dispatch(searchClear());
-        history.push('/');
-
-      }
         break;
+
       default:
         break;
     }
@@ -72,6 +86,18 @@ const HotelPage = () => {
                alignItems='center'
                sx={{ mt: '20px' }}
         >
+          {
+            !!isScheduleCreated
+            && isCongratulation
+            && (
+              <>
+                <Alert severity="success" sx={{ width: '1000px' }}>
+                  <AlertTitle>Success</AlertTitle>
+                  <strong>Congratulation!</strong> You scheduled the best hotel!
+                </Alert>
+              </>
+            )
+          }
           <Card sx={{ width: '1000px', height: '600px' }}>
             <CardMedia
               component='img'
@@ -126,7 +152,11 @@ const HotelPage = () => {
       </>
     );
   } else {
-    return <h1>Loading</h1>;
+    return (
+      <>
+        <Loader type={'1'}/>
+      </>
+    );
   }
 };
 
