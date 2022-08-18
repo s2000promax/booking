@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { logOut } from "../store/users";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../store/users';
+import Loader from '../components/common/loader';
+import { searchClear } from '../store/searchRequest';
+
 const LogOut = () => {
     const dispatch = useDispatch();
+
     useEffect(() => {
-        console.log("logout");
+        dispatch(searchClear())
         dispatch(logOut());
     }, []);
-    return <h1>Loading</h1>;
+
+    return <Loader type={'1'} /> ;
 };
 
 export default LogOut;

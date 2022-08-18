@@ -1,8 +1,9 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { getIsLoggedIn } from "../../store/users";
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../../store/users';
+
 const ProtectedRoute = ({ component: Component, children, ...rest }) => {
     const isLoggedIn = useSelector(getIsLoggedIn());
 
@@ -14,7 +15,7 @@ const ProtectedRoute = ({ component: Component, children, ...rest }) => {
                     return (
                         <Redirect
                             to={{
-                                pathname: "/login",
+                                pathname: '/login',
                                 state: {
                                     from: props.location
                                 }

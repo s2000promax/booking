@@ -1,7 +1,7 @@
 import localStorageService from '../services/localStorage.service';
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import isOutdated from '../utils/isOutdated';
 import scheduleService from '../services/schedule.service';
+import history from '../utils/history';
 
 const initialState = localStorageService.getAccessToken()
   ? {
@@ -39,6 +39,7 @@ const scheduleSlice = createSlice({
     },
     scheduleCreated: (state, action) => {
       state.entities.push(action.payload);
+      state.isLoading = false;
     },
     scheduleUpdateSuccessed: (state, action) => {
       state.entities[
@@ -63,7 +64,6 @@ const {
   scheduleRemoved
 } = actions;
 
-const addScheduleRequested = createAction('schedule/addScheduleRequested');
 const updateScheduleRequested = createAction('schedule/updateScheduleRequested');
 const updateScheduleFailed = createAction('schedule/updateScheduleFailed');
 const removeScheduleRequested = createAction('schedule/removeScheduleRequested');
@@ -81,10 +81,11 @@ export const loadScheduleList = () => async (dispatch) => {
 };
 
 export const createSchedule = (payload) => async (dispatch, getState) => {
-  dispatch(addScheduleRequested());
+  dispatch(scheduleRequested());
   try {
     const { content } = await scheduleService.createSchedule(payload);
     dispatch(scheduleCreated(content));
+    history.push(`/users/${content.userId}`)
   } catch (error) {
     dispatch(scheduleReceivedFailed(error.message));
   }
@@ -114,5 +115,7 @@ export const updateSchedule = (payload) => async (dispatch) => {
 };
 
 export const getSchedule = () => (state) => state.schedule.entities;
+export const getScheduleByUserId = (userId) => (state) => state.schedule.entities.filter(item => item.userId === userId);
+export const getScheduleRequestStatus = () => (state) => state.schedule.isLoading;
 
 export default scheduleReducer;

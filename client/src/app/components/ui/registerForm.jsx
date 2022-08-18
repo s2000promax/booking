@@ -89,7 +89,6 @@ const RegisterForm = () => {
 
         const newData = {
             ...data,
-            // qualities: data.qualities.map((q) => q.value)
         };
         dispatch(signUp(newData));
     };

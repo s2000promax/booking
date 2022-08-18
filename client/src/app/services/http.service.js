@@ -1,9 +1,9 @@
-import axios from "axios";
-import { toast } from "react-toastify";
-import configFile from "../config.json";
-import authService from "./auth.service";
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import configFile from '../config.json';
+import authService from './auth.service';
 
-import localStorageService from "./localStorage.service";
+import localStorageService from './localStorage.service';
 
 const http = axios.create({
   baseURL: configFile.apiEndpoint
@@ -18,7 +18,8 @@ http.interceptors.request.use(
     if (configFile.isFireBase) {
       const containSlash = /\/$/gi.test(config.url);
       config.url =
-        (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
+        (containSlash ? config.url.slice(0, -1) : config.url) + '.json';
+
       if (isExpired) {
         const data = await authService.refresh();
 
@@ -29,7 +30,9 @@ http.interceptors.request.use(
           localId: data.user_id
         });
       }
+
       const accessToken = localStorageService.getAccessToken();
+
       if (accessToken) {
         config.params = { ...config.params, auth: accessToken };
       }
@@ -38,7 +41,9 @@ http.interceptors.request.use(
         const data = await authService.refresh();
         localStorageService.setTokens(data);
       }
+
       const accessToken = localStorageService.getAccessToken();
+
       if (accessToken) {
         config.headers = {
           ...config.headers,
@@ -76,12 +81,12 @@ http.interceptors.response.use(
       error.response.status < 500;
 
     if (!expectedErrors) {
-      console.log(error);
-      toast.error("Somthing was wrong. Try it later");
+      toast.error('Somthing was wrong. Try it later');
     }
     return Promise.reject(error);
   }
 );
+
 const httpService = {
   get: http.get,
   post: http.post,
@@ -89,4 +94,5 @@ const httpService = {
   delete: http.delete,
   patch: http.patch
 };
+
 export default httpService;

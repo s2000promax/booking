@@ -11,6 +11,8 @@ import ProtectedRoute from './components/common/protectedRoute';
 import LogOut from './layouts/logOut';
 import AppLoader from './components/ui/hoc/appLoader';
 import hotelPage from './components/page/hotelPage';
+import AddHotelForm from './components/ui/addHotelForm';
+import Footer from './components/common/footer';
 
 function App() {
 
@@ -23,7 +25,8 @@ function App() {
                         path='/users/:userId?/:edit?'
                         component={Users}
                     />
-                    <ProtectedRoute path='/hotels/:hotelId?/' component={hotelPage} />
+                    <ProtectedRoute path='/hotels/:hotelId?' component={hotelPage} />
+                    <ProtectedRoute path='/addnewhotel/:userId?' component={AddHotelForm} />
                     <Route path='/login/:type?' component={Login} />
                     <Route path='/logout' component={LogOut} />
                     <Route path='/' exact component={Main} />
@@ -31,6 +34,9 @@ function App() {
                 </Switch>
             </AppLoader>
             <ToastContainer />
+          <div>
+            <Footer/>
+          </div>
         </div>
     );
 }

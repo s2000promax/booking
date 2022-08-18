@@ -1,10 +1,6 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import hotelsGEService from '../services/hotelsGE.service';
-import isOutdated from '../utils/isOutdated';
-import authService from '../services/auth.service';
-import localStorageService from '../services/localStorage.service';
 import history from '../utils/history';
-import scheduleService from '../services/schedule.service';
 
 const hotelsGeSlice = createSlice({
     name: 'hotelsGE',
@@ -55,7 +51,10 @@ export const addNewHotel = (payload) =>
       dispatch(addNewHotelsRequested());
       try {
           const { content } = await hotelsGEService.post(payload);
-          dispatch(hotelCreated(content));
+
+          dispatch(hotelCreated(content.owner));
+          dispatch(loadHotelsGeList());
+          history.push(`/users/${content.owner}`);
       } catch (error) {
           dispatch(hotelsGeRequestFailed(error.message));
       }
@@ -63,9 +62,11 @@ export const addNewHotel = (payload) =>
 
 export const getHotelsGE = () => (state) => state.hotelsGE.entities;
 export const getHotelsGeLoadingStatus = () => (state) => state.hotelsGE.isLoading;
+export const getOwnerHotels = (userId) => (state) => state.hotelsGE.entities.filter(hotel => hotel.owner === userId);
 export const getHotelsGeById = (id) => (state) => {
     if (state.hotelsGE.entities) {
         return state.hotelsGE.entities.find((p) => p._id === id);
     }
 };
+
 export default hotelsGeReducer;

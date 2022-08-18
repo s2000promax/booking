@@ -1,15 +1,25 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from 'react';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { getHotelsGeById } from '../../../store/hotelsGE';
 import { useHistory, useParams } from 'react-router-dom';
-import { Button, Card, CardActions, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import {
+  Alert,
+  AlertTitle,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Stack,
+  Typography
+} from '@mui/material';
 import GradeIcon from '@mui/icons-material/Grade';
 import { yellow } from '@mui/material/colors';
 import { getSearchRequest, searchClear } from '../../../store/searchRequest';
-import { createSchedule } from '../../../store/schedule';
+import { createSchedule, getScheduleRequestStatus } from '../../../store/schedule';
 import { getCurrentUserId, getUserById } from '../../../store/users';
+import Loader from '../../common/loader';
 
 const HotelPage = () => {
   const history = useHistory();
@@ -20,8 +30,12 @@ const HotelPage = () => {
   const user = useSelector(getUserById(userId));
 
   const currentHotel = useSelector(getHotelsGeById(params.hotelId));
+  const imagePath = `/images/${currentHotel.image}.jpg`
   const searchRequest = useSelector(getSearchRequest());
   const currentUserId = useSelector(getCurrentUserId());
+
+  const isScheduleCreated = useSelector(getScheduleRequestStatus());
+  const [isCongratulation, setIsCongratulation] = useState(false);
 
   const [information, setInformation] = useState({
     dateStart: null,
@@ -42,7 +56,10 @@ const HotelPage = () => {
       case 'BACK':
         history.push('/');
         break;
-      case 'SCHEDULE': {
+
+      case 'SCHEDULE':
+        setIsCongratulation(true);
+
         dispatch(createSchedule({
           userId: currentUserId,
           hotelId: params.hotelId,
@@ -51,12 +68,9 @@ const HotelPage = () => {
           dateEnd: searchRequest.dateEnd
         }));
 
-        // Need Congratulations page!!!
         dispatch(searchClear());
-        history.push('/');
-
-      }
         break;
+
       default:
         break;
     }
@@ -67,28 +81,39 @@ const HotelPage = () => {
       <>
         <Stack display='flex'
                width='100%'
-               height='100vh'
                direction='column'
                justifyContent='center'
                alignItems='center'
+               sx={{ mt: '20px' }}
         >
+          {
+            !!isScheduleCreated
+            && isCongratulation
+            && (
+              <>
+                <Alert severity="success" sx={{ width: '1000px' }}>
+                  <AlertTitle>Success</AlertTitle>
+                  <strong>Congratulation!</strong> You scheduled the best hotel!
+                </Alert>
+              </>
+            )
+          }
           <Card sx={{ width: '1000px', height: '600px' }}>
             <CardMedia
-              component="img"
-              height="340"
-              image="/static/images/cards/contemplative-reptile.jpg"
-              alt="green iguana"
+              component='img'
+              height='340'
+              image={imagePath}
+              alt='green iguana'
               sx={{
                 background: '#f5e4ac'
               }}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant='h5' component='div'>
                 {currentHotel.name}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Lizards are a widespread group of squamate reptiles, with over 6,000
-                species, ranging across all continents except Antarctica
+              <Typography variant='body2' color='text.secondary'>
+                {currentHotel.description}
               </Typography>
               {
                 !!currentHotel.rate && new Array(currentHotel.rate).fill(null).map((item, index) => (
@@ -96,21 +121,29 @@ const HotelPage = () => {
                 ))
               }
             </CardContent>
-            {
-              user.type !== 'business' && (
-                <Typography color="text.secondary" sx={{ ml: '20px' }}>
-                  Dear guest, you are schedule one room in our hotel {currentHotel.name}
-                  <p
-                    sx={{ pl: '20px' }}>From {information.dateStart} to {information.dateEnd} for {information.nights} nights</p>
-                </Typography>
-              )
-            }
+
+            <Stack display='flex' direction='row' justifyContent='space-between'>
+              <Stack display='flex' direction='row'>
+                {
+                  user.type !== 'business' && (
+                    <Typography color='text.secondary' sx={{ ml: '20px' }}>
+                      Dear guest, you are schedule one room in our hotel {currentHotel.name}
+                      <p
+                        sx={{ pl: '20px' }}>From {information.dateStart} to {information.dateEnd} for {information.nights} nights</p>
+                    </Typography>
+                  )
+                }
+              </Stack>
+              <Stack>
+                <Typography color='text.primary' sx={{ mr: '10px' }}>{currentHotel.price} {' $'}</Typography>
+              </Stack>
+            </Stack>
 
             <CardActions>
-              <Button size="small" data-button='BACK' onClick={handleClick}>Back</Button>
+              <Button size='small' data-button='BACK' onClick={handleClick}>Back</Button>
               {
                 user.type !== 'business' && (
-                  <Button size="small" data-button='SCHEDULE' onClick={handleClick}>Schedule</Button>
+                  <Button size='small' data-button='SCHEDULE' onClick={handleClick}>Schedule</Button>
                 )
               }
             </CardActions>
@@ -119,7 +152,11 @@ const HotelPage = () => {
       </>
     );
   } else {
-    return <h1>Loading</h1>;
+    return (
+      <>
+        <Loader type={'1'}/>
+      </>
+    );
   }
 };
 

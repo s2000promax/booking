@@ -5,7 +5,6 @@ import CheckBoxField from '../common/form/checkBoxField';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthErrors, login } from '../../store/users';
-import { loadScheduleList } from '../../store/schedule';
 
 const LoginForm = () => {
     const [data, setData] = useState({
@@ -13,9 +12,11 @@ const LoginForm = () => {
         password: '',
         stayOn: false
     });
+
     const loginError = useSelector(getAuthErrors());
     const history = useHistory();
     const dispatch = useDispatch();
+
     const [errors, setErrors] = useState({});
 
     const handleChange = (target) => {
@@ -37,14 +38,17 @@ const LoginForm = () => {
             }
         }
     };
+
     useEffect(() => {
         validate();
     }, [data]);
+
     const validate = () => {
         const errors = validator(data, validatorConfig);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
+
     const isValid = Object.keys(errors).length === 0;
 
     const handleSubmit = (e) => {
@@ -57,9 +61,9 @@ const LoginForm = () => {
             ? history.location.state.from.pathname
             : '/';
 
-
         dispatch(login({ payload: data, redirect }));
     };
+
     return (
         <form onSubmit={handleSubmit}>
             <TextField

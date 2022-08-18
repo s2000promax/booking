@@ -109,7 +109,7 @@ export const signUp = (payload) =>
             const data = await authService.register(payload);
             localStorageService.setTokens(data);
             dispatch(authRequestSuccess({ userId: data.userId }));
-            history.push('/users');
+            history.push(`/users/${data.userId}`);
         } catch (error) {
             dispatch(authRequestFailed(error.message));
         }
@@ -141,11 +141,13 @@ export const updateUser = (payload) => async (dispatch) => {
 };
 
 export const getUsersList = () => (state) => state.users.entities;
+
 export const getCurrentUserData = () => (state) => {
     return state.users.entities
         ? state.users.entities.find((u) => u._id === state.users.auth.userId)
         : null;
 };
+
 export const getUserById = (userId) => (state) => {
     if (state.users.entities) {
         return state.users.entities.find((u) => u._id === userId);
@@ -155,6 +157,6 @@ export const getUserById = (userId) => (state) => {
 export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
 export const getDataStatus = () => (state) => state.users.dataLoaded;
 export const getUsersLoadingStatus = () => (state) => state.users.isLoading;
-export const getCurrentUserId = () => (state) => state.users.auth?.userId;
+export const getCurrentUserId = () => (state) => state.users.auth.userId;
 export const getAuthErrors = () => (state) => state.users.error;
 export default usersReducer;

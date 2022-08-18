@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const SelectField = ({
     label,
@@ -14,11 +14,11 @@ const SelectField = ({
         onChange({ name: target.name, value: target.value });
     };
     const getInputClasses = () => {
-        return "form-select" + (error ? " is-invalid" : "");
+        return 'form-select' + (error ? ' is-invalid' : '');
     };
 
     const optionsArray =
-        !Array.isArray(options) && typeof options === "object"
+        !Array.isArray(options) && typeof options === 'object'
             ? Object.keys(options).map((optionName) => ({
                   name: options[optionName].name,
                   value: options[optionName]._id
@@ -26,18 +26,18 @@ const SelectField = ({
             : options;
 
     return (
-        <div className="mb-4">
-            <label htmlFor="validationCustom04" className="form-label">
+        <div className='mb-4'>
+            <label htmlFor='validationCustom04' className='form-label'>
                 {label}
             </label>
             <select
                 className={getInputClasses()}
-                id="validationCustom04"
+                id='validationCustom04'
                 name={name}
                 value={value}
                 onChange={handleChange}
             >
-                <option disabled value="">
+                <option disabled value=''>
                     {defaultOption}
                 </option>
                 {optionsArray &&
@@ -47,7 +47,7 @@ const SelectField = ({
                         </option>
                     ))}
             </select>
-            {error && <div className="invalid-feedback">{error}</div>}
+            {error && <div className='invalid-feedback'>{error}</div>}
         </div>
     );
 };

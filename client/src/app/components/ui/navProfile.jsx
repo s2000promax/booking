@@ -2,27 +2,30 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getCurrentUserData } from '../../store/users';
-import { Avatar, Box, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import { Logout } from '@mui/icons-material';
+import Loader from '../common/loader';
 
 const NavProfile = () => {
   const currentUser = useSelector(getCurrentUserData());
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  if (!currentUser) return 'loading';
+  if (!currentUser) return <Loader type={'1'} />;
+
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Typography variant='h6' sx={{ color: '#e1dede' }}>{currentUser.name}</Typography>
-
+        {/*<Typography variant='h6' sx={{ color: '#e1dede' }}>{currentUser.name}</Typography>*/}
         <Tooltip title='Account settings'>
           <IconButton
             onClick={handleClick}

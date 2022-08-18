@@ -3,18 +3,19 @@ import { useSelector } from 'react-redux';
 import { useParams, Redirect } from 'react-router-dom';
 import EditUserPage from '../components/page/editUserPage';
 import UserPage from '../components/page/userPage';
-import UsersLoader from '../components/ui/hoc/usersLoader';
 
-import { getCurrentUserId } from '../store/users';
-import HotelsGeList from '../components/ui/hotelsGeList';
+import { getCurrentUserId, getUserById } from '../store/users';
+import Main from './main';
+
 const Users = () => {
     const params = useParams();
     const { userId, edit } = params;
-    const currentUserId = useSelector(getCurrentUserId());
 
-    return (
+    const currentUserId = useSelector(getCurrentUserId());
+    const user = useSelector(getUserById(userId));
+
+  return (
         <>
-            <UsersLoader>
                 {userId ? (
                     edit ? (
                         userId === currentUserId ? (
@@ -23,13 +24,11 @@ const Users = () => {
                             <Redirect to={`/users/${currentUserId}/edit`} />
                         )
                     ) : (
-                        <UserPage userId={userId} />
+                        <UserPage user={user} />
                     )
                 ) : (
-                    // <UsersListPage />
-                  <HotelsGeList />
+                  <Main />
                 )}
-            </UsersLoader>
         </>
     );
 };
