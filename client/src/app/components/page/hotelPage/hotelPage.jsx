@@ -116,7 +116,7 @@ const HotelPage = () => {
                 {currentHotel.description}
               </Typography>
               {
-                !!currentHotel.rate && new Array(currentHotel.rate).fill(null).map((item, index) => (
+                !!currentHotel.rate && new Array(currentHotel.rate + 1).fill(null).map((item, index) => (
                   <GradeIcon key={index} sx={{ color: yellow[600] }}/>
                 ))
               }

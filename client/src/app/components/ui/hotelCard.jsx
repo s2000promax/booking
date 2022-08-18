@@ -51,7 +51,7 @@ const handleClick = (event) => {
           <Stack display='flex' direction='row' justifyContent='space-between' sx={{ ml: '15px', mr: '15px' }}>
             <Stack display='flex' direction='row'>
               {
-                !!rate && new Array(rate).fill(null).map((item, index) => (
+                !!rate && new Array(rate + 1).fill(null).map((item, index) => (
                   <GradeIcon key={index} sx={{ color: yellow[600] }}/>
                 ))
               }
