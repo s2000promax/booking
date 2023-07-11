@@ -1,0 +1,13 @@
+docker build -t booking .
+
+docker run -d -p 80:8080 --name booking --rm booking
+
+//==========
+docker stop
+
+//==clear
+docker rm booking
+
+docker image ls
+docker image rm booking
+
